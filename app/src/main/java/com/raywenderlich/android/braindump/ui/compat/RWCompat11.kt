@@ -38,12 +38,28 @@ import android.content.Context
 import android.os.Build
 import android.view.*
 import androidx.annotation.RequiresApi
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updateMargins
 import androidx.recyclerview.widget.LinearLayoutManager
 
 internal class RWCompat11(private val view: View, private val container: View) {
 
+  private var positionTop = 0
+  private var positionBottom = 0
+
   fun setUiWindowInsets() {
-    //TODO: add code here
+    ViewCompat.setOnApplyWindowInsetsListener(container) { _, inset ->
+      if (positionBottom == 0) {
+        positionTop = inset.getInsets(WindowInsetsCompat.Type.systemBars()).top
+        positionBottom = inset.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+      }
+      container.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+        updateMargins(top = positionTop, bottom = positionBottom)
+      }
+      inset
+    }
   }
 
   @RequiresApi(Build.VERSION_CODES.R)

@@ -36,7 +36,10 @@ package com.raywenderlich.android.braindump.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowCompat.*
 import com.raywenderlich.android.braindump.R
+import com.raywenderlich.android.braindump.isAtLeastAndroid11
 
 /**
  * Main Screen
@@ -44,7 +47,7 @@ import com.raywenderlich.android.braindump.R
 class MainActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    // Switch to AppTheme for displaying the activity
+    setDecorFitsSystemWindows(window, !isAtLeastAndroid11())
     setTheme(R.style.AppTheme)
 
     super.onCreate(savedInstanceState)

@@ -36,7 +36,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <androidx.appcompat.widget.Toolbar
       android:id="@+id/toolbar"
@@ -71,8 +72,8 @@
         android:fontFamily="sans-serif"
         android:hint="@string/note_add_note"
         android:inputType="text"
-        android:paddingEnd="16dp"
         android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:singleLine="false"
         android:textColorHint="@color/colorGrey"
         android:textSize="15sp" />

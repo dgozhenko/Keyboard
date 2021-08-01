@@ -37,6 +37,7 @@ package com.raywenderlich.android.braindump.ui.compat
 import android.content.Context
 import android.os.Build
 import android.view.*
+import android.view.WindowInsetsAnimation.Callback.DISPATCH_MODE_STOP
 import androidx.annotation.RequiresApi
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -69,6 +70,19 @@ internal class RWCompat11(private val view: View, private val container: View) {
 
   @RequiresApi(Build.VERSION_CODES.R)
   fun animateKeyboardDisplay() {
-    //TODO: add code here
+    val callback = object : WindowInsetsAnimation.Callback(DISPATCH_MODE_STOP) {
+      override fun onProgress(
+        insets: WindowInsets,
+        runningAnimations: MutableList<WindowInsetsAnimation>
+      ): WindowInsets {
+        positionBottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom +
+                insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+        container.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+          updateMargins(bottom = positionBottom, top = positionTop)
+        }
+        return insets
+      }
+    }
+    container.setWindowInsetsAnimationCallback(callback)
   }
 }
